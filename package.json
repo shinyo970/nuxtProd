@@ -1,0 +1,24 @@
+{
+    "name": "nuxtTest",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "cross-env MODE=dev nuxt",
+        "pro": "cross-env MODE=production nuxt",
+        "build:test": "cross-env MODE=test nuxt build",
+        "build": "cross-env MODE=production nuxt build",
+        "start:test": "cross-env MODE=test nuxt start",
+        "start": "cross-env MODE=production nuxt start",
+        "generate": "nuxt generate"
+    },
+    "dependencies": {
+        "@nuxtjs/axios": "^5.13.6",
+        "cookie-universal-nuxt": "^2.2.1",
+        "core-js": "^3.15.1",
+        "element-ui": "^2.15.2",
+        "nuxt": "^2.15.8"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3"
+    }
+}
