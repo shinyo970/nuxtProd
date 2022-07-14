@@ -1,28 +1,46 @@
 /*
-https://www.npmjs.com/package/cookie-universal-nuxt 
+https://www.npmjs.com/package/cookie-universal-nuxt
 */
-export default function ({app ,$axios, redirect }) {
-    const auth=app.$cookies.get('Authorization');
-    console.log('auth====>',auth);
-    if(auth){
-        $axios.setHeader('Authorization', auth)
-    }else{
-        console.log('未设置token')
-    }
-    $axios.onRequest(config => {
-        
-    })
+import ElementUI from 'element-ui';
+function reLogin() {
+    Vue.prototype.$message({
+        type: "error",
+        message: "您还没有登陆,请登陆"
+    });
+    setTimeout(() => {
+        router.push('/login');
+    }, 1000);
+}
+
+export default function ({ app, $axios, redirect, error: nuxtError }) {
+    const auth = app.$cookies.get('Authorization');
     $axios.setHeader('Content-Type', 'application/x-www-form-urlencoded', [
         'post'
     ])
-    $axios.onError(error => {
-        const code = parseInt(error.response && error.response.status)
-        if (code === 400) {
-            redirect('/400')
+    $axios.onRequest(config => {
+        if (auth) {
+            $axios.setHeader('Authorization', auth)
+        } else {
+            $axios.setHeader('Authorization','');
         }
     })
-    
+    $axios.onResponse(response=>{
+        //console.log('onResponse',onResponse.data) //这个就是直接返回结果,res.data
+    });
+    $axios.onError(error => {
+        console.log('onError', error)
+        const code = parseInt(error.response && error.response.status);
+        nuxtError({
+            statusCode: code,
+            message: error.message,
+        });
+        return Promise.resolve(false);
 
-    // Removes default Content-Type header from `post` scope
-    $axios.setHeader('Content-Type', false, ['post'])
+    })
+    $axios.onRequestError(error=>{
+        console.log('onRequestError',error)
+    });
+    $axios.onResponseError(error=>{
+        console.log('onResponseError', error)
+    })
 }

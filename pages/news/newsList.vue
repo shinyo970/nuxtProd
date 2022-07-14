@@ -1,7 +1,7 @@
 <template>
     <div>
         <navHead></navHead>
-        新闻列表
+        新闻列表,写死的文件
         <div><strong>使用_id.vue 文件做动态路由,就必须使用a标签,href的形式</strong></div>
         <ul>
             <li>

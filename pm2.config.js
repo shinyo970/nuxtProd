@@ -9,7 +9,7 @@ module.exports = {
         merge_logs: true,
         log_date_format: "YYYY-MM-DD HH:mm:ss",
         ignore_watch: 'logs',
-        args: 'start'
+        args: 'run start'
     }]
 }
 
